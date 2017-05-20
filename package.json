@@ -1,0 +1,29 @@
+{
+  "name": "react-scripts-x",
+  "version": "0.1.0",
+  "description": "Extensions for Create React App build scripts.",
+  "repository": "mihhail-lapushkin/react-scripts-x",
+  "license": "MIT",
+  "engines": {
+    "node": ">=6"
+  },
+  "bugs": {
+    "url": "https://github.com/mihhail-lapushkin/react-scripts-x/issues"
+  },
+  "files": [
+    "bin"
+  ],
+  "bin": {
+    "react-scripts-x": "./bin/react-scripts-x.js"
+  },
+  "dependencies": {
+    "cross-spawn": "4.0.2",
+    "deep-equal": "1.0.1"
+  },
+  "devDependencies": {
+    "react-scripts": "1.0.1"
+  },
+  "peerDependencies": {
+    "react-scripts": ">=1.0.0"
+  }
+}
