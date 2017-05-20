@@ -87,8 +87,8 @@ function changeAndReturnWebpackConfig(pathToConfig, postcssPlugins) {
         return `require('${plugin.name}')(${JSON.stringify(plugin.config)}),`;
       }
 
-      return `require('${plugin.name}'),`;
-    })
+      return `require('${plugin.name}')`;
+    }).join()
 
     +
 
