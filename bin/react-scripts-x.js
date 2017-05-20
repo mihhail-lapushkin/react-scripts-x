@@ -13,6 +13,7 @@ const appDescriptor           = require(path.resolve(appDirectory, 'package'));
 const extensionsConfig        = appDescriptor['react-scripts-x'];
 const reactScriptsDir         = path.dirname(require.resolve('react-scripts/package'));
 const reactScriptsDescriptor  = require('react-scripts/package');
+const moduleDescriptor        = require('react-scripts-x/package');
 
 const pathTo = {
   webpackDevConfig:           path.resolve(reactScriptsDir, 'config', 'webpack.config.dev.js'),
@@ -117,7 +118,7 @@ function applyExtensions() {
   fs.writeFileSync(pathTo.changeLog, JSON.stringify({
     version: {
       'react-scripts': reactScriptsDescriptor.version,
-      'react-scripts-x': appDescriptor.version
+      'react-scripts-x': moduleDescriptor.version
     },
     files: files
   }, null, 2), 'utf8');
@@ -129,7 +130,7 @@ if (extensionsConfig && extensionsConfig.postcss) {
 
     if (changeLog.version['react-scripts'] !== reactScriptsDescriptor.version) {
       applyExtensions();
-    } else if (changeLog.version['react-scripts-x'] !== appDescriptor.version) {
+    } else if (changeLog.version['react-scripts-x'] !== moduleDescriptor.version) {
       applyExtensions();
     } else if (Object.keys(changeLog.files)
         .filter(file => equal(changeLog.files[file].changes, extensionsConfig))
