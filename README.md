@@ -1,3 +1,7 @@
+For now it's just a simple way to inject `postcss` plugins.
+
+In the future it might become a full-blown module to define extensions for Create React App.
+
 ```
 {
   "...": "..."
