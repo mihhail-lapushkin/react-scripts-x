@@ -17,7 +17,10 @@
         "name": "postcss-import"
       },
       {
-        "name": "postcss-custom-properties"
+        "name": "postcss-custom-properties",
+        "config": {
+          "preserve": true
+        }
       },
       {
         "name": "postcss-calc"
