@@ -7,11 +7,11 @@ In the future it might become a full-blown module to define extensions for Creat
   // ...
   "devDependencies": {
     // ...
-    "postcss-calc": "6.0.0",
-    "postcss-custom-properties": "6.0.1",
-    "postcss-import": "10.0.0",
-    "react-scripts": "1.0.10",
-    "react-scripts-x": "0.1.3",
+    "postcss-calc": "7.0.1",
+    "postcss-custom-properties": "8.0.9",
+    "postcss-import": "12.0.1",
+    "react-scripts": "3.0.0",
+    "react-scripts-x": "1.0.0",
     // ...
   },
   // ...
@@ -38,3 +38,9 @@ In the future it might become a full-blown module to define extensions for Creat
   }
 }
 ```
+
+# Changelog
+
+## 1.0.0 (April 26, 2019)
+
+Fixed for `react-scripts` >= 3. Continue using `react-scripts-x@0.1.3` for `react-scripts` < 3.

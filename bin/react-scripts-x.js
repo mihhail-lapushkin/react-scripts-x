@@ -5,8 +5,7 @@ const crypto  = require('crypto');
 const path    = require('path');
 const fs      = require('fs');
 const equal   = require('deep-equal');
-const spawn   = require('cross-spawn');
-const args    = process.argv.slice(2);
+const spawn   = require('react-dev-utils/crossSpawn');
 
 const appDirectory            = fs.realpathSync(process.cwd());
 const appDescriptor           = require(path.resolve(appDirectory, 'package'));
@@ -16,11 +15,9 @@ const reactScriptsDescriptor  = require('react-scripts/package');
 const moduleDescriptor        = require('react-scripts-x/package');
 
 const pathTo = {
-  webpackDevConfig:           path.resolve(reactScriptsDir, 'config', 'webpack.config.dev.js'),
-  webpackProdConfig:          path.resolve(reactScriptsDir, 'config', 'webpack.config.prod.js'),
-  webpackDevOriginalConfig:   path.resolve(reactScriptsDir, 'config', 'webpack.config.dev.original.js'),
-  webpackProdOriginalConfig:  path.resolve(reactScriptsDir, 'config', 'webpack.config.prod.original.js'),
-  changeLog:                  path.resolve(reactScriptsDir, 'react-scripts-x.json')
+  webpackConfig:          path.resolve(reactScriptsDir, 'config', 'webpack.config.js'),
+  webpackOriginalConfig:  path.resolve(reactScriptsDir, 'config', 'webpack.config.original.js'),
+  changeLog:              path.resolve(reactScriptsDir, 'react-scripts-x.json')
 };
 
 function findArrayEnd(string, start) {
@@ -103,24 +100,17 @@ function changeAndReturnWebpackConfig(pathToConfig, postcssPlugins) {
 function applyExtensions() {
   console.info('Applying extensions');
 
-  const files = {};
-
-  [
-    pathTo.webpackDevConfig,
-    pathTo.webpackProdConfig
-  ].forEach(file => {
-    files[path.relative(reactScriptsDir, file)] = {
-      hash: md5(changeAndReturnWebpackConfig(file, extensionsConfig.postcss)),
-      changes: extensionsConfig
-    };
-  });
-
   fs.writeFileSync(pathTo.changeLog, JSON.stringify({
     version: {
       'react-scripts': reactScriptsDescriptor.version,
       'react-scripts-x': moduleDescriptor.version
     },
-    files: files
+    files: {
+      [path.relative(reactScriptsDir, pathTo.webpackConfig)]: {
+        hash: md5(changeAndReturnWebpackConfig(pathTo.webpackConfig, extensionsConfig.postcss)),
+        changes: extensionsConfig
+      }
+    }
   }, null, 2), 'utf8');
 }
 
@@ -143,6 +133,7 @@ if (extensionsConfig && extensionsConfig.postcss) {
   }
 }
 
+const args = process.argv.slice(2);
 const result = spawn.sync(
   'node',
   [require.resolve('react-scripts/bin/react-scripts')].concat(args),
